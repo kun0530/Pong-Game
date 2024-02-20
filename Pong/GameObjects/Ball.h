@@ -12,6 +12,8 @@ protected:
 	bool isDead = false;
 	bool isBoundBat = false;
 
+	sf::FloatRect windowBounds;
+
 public:
 	Ball(const std::string& name = "");
 

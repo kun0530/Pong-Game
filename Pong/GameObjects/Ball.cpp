@@ -42,13 +42,39 @@ void Ball::Init()
 		FRAMEWORK.GetWindowSize().y / 2.f });
 	ball.setFillColor(sf::Color::White);
 	SetOrigin(Origins::BC);
+
+	windowBounds = { { 0.f, 0.f },
+		{ (float)FRAMEWORK.GetWindowSize().x, (float)FRAMEWORK.GetWindowSize().y } };
 }
 
 void Ball::Update(float dt)
 {
-	sf::Vector2f pos = GetPosition();
+	sf::Vector2f prevPos = GetPosition();
+	sf::Vector2f pos = prevPos;
 	pos += direction * speed * dt;
 	SetPosition(pos);
+
+	const sf::FloatRect& ballBounds = ball.getGlobalBounds();
+	float ballTop = ballBounds.top;
+	float ballBottom = ballBounds.top + ballBounds.height;
+	float ballLeft = ballBounds.left;
+	float ballRight = ballBounds.left + ballBounds.width;
+
+	float windowTop = windowBounds.top;
+	float windowBottom = windowBounds.top + windowBounds.height;
+	float windowLeft = windowBounds.left;
+	float windowRight = windowBounds.left + windowBounds.width;
+
+	if (ballTop < windowTop || ballBottom > windowBottom)
+	{
+		direction.y *= -1.f;
+		SetPosition(prevPos);
+	}
+	if (ballLeft < windowLeft || ballRight > windowRight)
+	{
+		direction.x *= -1.f;
+		SetPosition(prevPos);
+	}
 }
 
 void Ball::Draw(sf::RenderWindow& window)
