@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SceneGame.h"
 #include "Ball.h"
+#include "Bat.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -15,6 +16,9 @@ void SceneGame::Init()
 	ball = new Ball("Ball");
 	AddGo(ball);
 
+	bat = new Bat("Bat");
+	AddGo(bat);
+
 	for (auto obj : gameObjects)
 	{
 		obj->Init();
@@ -26,6 +30,7 @@ void SceneGame::Release()
 	Scene::Release();
 
 	ball = nullptr;
+	bat = nullptr;
 }
 
 void SceneGame::Enter()

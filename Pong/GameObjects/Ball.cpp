@@ -39,7 +39,7 @@ void Ball::Init()
 {
 	ball.setRadius(10.f);
 	SetPosition({ FRAMEWORK.GetWindowSize().x / 2.f,
-		FRAMEWORK.GetWindowSize().y / 2.f });
+		FRAMEWORK.GetWindowSize().y - 100.f });
 	ball.setFillColor(sf::Color::White);
 	SetOrigin(Origins::BC);
 

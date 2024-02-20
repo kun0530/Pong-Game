@@ -2,12 +2,15 @@
 #include "Scene.h"
 
 class Ball;
+class Bat;
 
 class SceneGame : public Scene
 {
 protected:
 	Ball* ball = nullptr;
 	bool isBallActive = false;
+
+	Bat* bat = nullptr;
 
 public:
 	SceneGame(SceneIds id);
