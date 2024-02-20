@@ -1,8 +1,12 @@
 #pragma once
 #include "Scene.h"
+
+class Ball;
+
 class SceneGame : public Scene
 {
 protected:
+	Ball* ball = nullptr;
 
 public:
 	SceneGame(SceneIds id);
