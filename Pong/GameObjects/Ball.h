@@ -19,6 +19,9 @@ public:
 
 	void Fire(sf::Vector2f dir, float spd);
 
+	bool IsDead() const { return isDead; }
+	bool IsBoundBat() const { return isBoundBat; }
+
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetOrigin(Origins preset) override;
 	void SetOrigin(const sf::Vector2f& newOrigin) override;

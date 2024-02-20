@@ -36,6 +36,8 @@ void SceneGame::Release()
 void SceneGame::Enter()
 {
 	Scene::Enter();
+
+	score = 0;
 }
 
 void SceneGame::Exit()
@@ -47,10 +49,24 @@ void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
 
-	if (!isBallActive && InputMgr::GetKeyDown(sf::Keyboard::Space))
+	if (!isBallActive)
 	{
-		ball->Fire({ 1.f, -1.f }, 1000.f);
-		isBallActive = true;
+		ball->SetPosition(bat->GetPosition());
+		if (InputMgr::GetKeyDown(sf::Keyboard::Space))
+		{
+			ball->Fire({ 1.f, -1.f }, 1000.f);
+			isBallActive = true;
+		}
+	}
+
+	if (ball->IsDead())
+	{
+		isBallActive = false;
+		ball->Fire({ 0.f, 0.f }, 0.f);
+	}
+	else if (ball->IsBoundBat())
+	{
+		score += 100;
 	}
 }
 

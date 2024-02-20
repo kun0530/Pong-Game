@@ -12,6 +12,8 @@ protected:
 
 	Bat* bat = nullptr;
 
+	int score = 0;
+
 public:
 	SceneGame(SceneIds id);
 	virtual ~SceneGame();

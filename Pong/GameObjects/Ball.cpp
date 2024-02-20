@@ -65,7 +65,7 @@ void Ball::Update(float dt)
 	float windowLeft = windowBounds.left;
 	float windowRight = windowBounds.left + windowBounds.width;
 
-	if (ballTop < windowTop || ballBottom > windowBottom)
+	if (ballTop < windowTop)
 	{
 		direction.y *= -1.f;
 		SetPosition(prevPos);
@@ -74,6 +74,11 @@ void Ball::Update(float dt)
 	{
 		direction.x *= -1.f;
 		SetPosition(prevPos);
+	}
+
+	if (ballBottom > windowBottom)
+	{
+		isDead = true;
 	}
 }
 
