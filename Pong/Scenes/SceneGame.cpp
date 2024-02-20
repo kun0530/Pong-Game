@@ -28,6 +28,15 @@ void SceneGame::Init()
 		sf::Color::White);
 	AddGo(infoUi);
 
+	gameOverMsg = new TextGo("GameOver Message UI");
+	gameOverMsg->Set(fontResMgr.Get("fonts/DS-DIGI.ttf"),
+		"", 50, sf::Color::Red);
+	gameOverMsg->SetActive(false);
+	gameOverMsg->SetOrigin(Origins::MC);
+	gameOverMsg->SetPosition({ (float)FRAMEWORK.GetWindowSize().x / 2.f,
+		(float)FRAMEWORK.GetWindowSize().y / 2.f });
+	AddGo(gameOverMsg);
+
 	for (auto obj : gameObjects)
 	{
 		obj->Init();
@@ -41,6 +50,7 @@ void SceneGame::Release()
 	ball = nullptr;
 	bat = nullptr;
 	infoUi = nullptr;
+	gameOverMsg = nullptr;
 }
 
 void SceneGame::Enter()
@@ -49,6 +59,7 @@ void SceneGame::Enter()
 
 	score = 0;
 	lives = 3;
+	isGameOver = false;
 }
 
 void SceneGame::Exit()
@@ -85,6 +96,21 @@ void SceneGame::Update(float dt)
 	}
 
 	ball->SetBatBounds(bat->GetBatBounds());
+
+	if (lives == 0)
+	{
+		isGameOver = true;
+		gameOverMsg->SetString("Game Over! Your Score: " + std::to_string(score));
+		gameOverMsg->SetActive(true);
+	}
+	if (isGameOver && InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		isGameOver = false;
+		gameOverMsg->SetActive(false);
+		lives = 3;
+		score = 0;
+		infoUi->SetString("Score: " + std::to_string(score) + " / Lives: " + std::to_string(lives));
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

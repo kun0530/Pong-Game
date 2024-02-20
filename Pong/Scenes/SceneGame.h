@@ -16,6 +16,9 @@ protected:
 	TextGo* infoUi = nullptr;
 	int score = 0;
 	int lives = 3;
+	bool isGameOver = false;
+
+	TextGo* gameOverMsg = nullptr;
 
 public:
 	SceneGame(SceneIds id);
