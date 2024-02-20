@@ -2,6 +2,7 @@
 #include "SceneGame.h"
 #include "Ball.h"
 #include "Bat.h"
+#include "TextGo.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -19,6 +20,14 @@ void SceneGame::Init()
 	bat = new Bat("Bat");
 	AddGo(bat);
 
+	RES_MGR_FONT.Load("fonts/DS-DIGI.ttf");
+	infoUi = new TextGo("Info UI");
+	infoUi->Set(fontResMgr.Get("fonts/DS-DIGI.ttf"),
+		"Score: " + std::to_string(score) + " / Lives: " + std::to_string(lives),
+		50,
+		sf::Color::White);
+	AddGo(infoUi);
+
 	for (auto obj : gameObjects)
 	{
 		obj->Init();
@@ -31,6 +40,7 @@ void SceneGame::Release()
 
 	ball = nullptr;
 	bat = nullptr;
+	infoUi = nullptr;
 }
 
 void SceneGame::Enter()
@@ -38,6 +48,7 @@ void SceneGame::Enter()
 	Scene::Enter();
 
 	score = 0;
+	lives = 3;
 }
 
 void SceneGame::Exit()
@@ -58,15 +69,19 @@ void SceneGame::Update(float dt)
 			isBallActive = true;
 		}
 	}
-
-	if (ball->IsDead())
+	else
 	{
-		isBallActive = false;
-		ball->Fire({ 0.f, 0.f }, 0.f);
-	}
-	else if (ball->IsBoundBat())
-	{
-		score += 100;
+		if (ball->IsDead())
+		{
+			lives -= 1;
+			isBallActive = false;
+			ball->Fire({ 0.f, 0.f }, 0.f);
+		}
+		else if (ball->IsBoundBat())
+		{
+			score += 100;
+		}
+		infoUi->SetString("Score: " + std::to_string(score) + " / Lives: " + std::to_string(lives));
 	}
 }
 

@@ -3,6 +3,7 @@
 
 class Ball;
 class Bat;
+class TextGo;
 
 class SceneGame : public Scene
 {
@@ -12,7 +13,9 @@ protected:
 
 	Bat* bat = nullptr;
 
+	TextGo* infoUi = nullptr;
 	int score = 0;
+	int lives = 3;
 
 public:
 	SceneGame(SceneIds id);
