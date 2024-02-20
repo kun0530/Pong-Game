@@ -18,6 +18,11 @@ void Ball::SetPosition(const sf::Vector2f& pos)
 	ball.setPosition(pos);
 }
 
+void Ball::SetBatBounds(const sf::FloatRect& batBounds)
+{
+	this->batBounds = batBounds;
+}
+
 void Ball::SetOrigin(Origins preset)
 {
 	if (preset == Origins::Custom)
@@ -49,11 +54,16 @@ void Ball::Init()
 
 void Ball::Update(float dt)
 {
+	isBoundBat = false;
+
 	sf::Vector2f prevPos = GetPosition();
 	sf::Vector2f pos = prevPos;
 	pos += direction * speed * dt;
 	SetPosition(pos);
 
+
+
+	// ball苞 window 面倒 贸府
 	const sf::FloatRect& ballBounds = ball.getGlobalBounds();
 	float ballTop = ballBounds.top;
 	float ballBottom = ballBounds.top + ballBounds.height;
@@ -79,6 +89,37 @@ void Ball::Update(float dt)
 	if (ballBottom > windowBottom)
 	{
 		isDead = true;
+	}
+
+
+
+	// ball苞 bat狼 面倒 贸府
+	float batTop = batBounds.top;
+	float batBottom = batBounds.top + batBounds.height;
+	float batLeft = batBounds.left;
+	float batRight = batBounds.left + batBounds.width;
+
+	if (ballBounds.intersects(batBounds))
+	{
+		if (!isBatCollision)
+		{
+			isBatCollision = true;
+			isBoundBat = true;
+
+			if (ballBottom > batTop || ballTop < batBottom)
+			{
+				direction.y *= -1.f;
+			}
+
+			if (ballLeft > batRight || ballRight < batLeft)
+			{
+				direction.x *= -1.f;
+			}
+		}
+	}
+	else
+	{
+		isBatCollision = false;
 	}
 }
 

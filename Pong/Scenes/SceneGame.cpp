@@ -83,6 +83,8 @@ void SceneGame::Update(float dt)
 		}
 		infoUi->SetString("Score: " + std::to_string(score) + " / Lives: " + std::to_string(lives));
 	}
+
+	ball->SetBatBounds(bat->GetBatBounds());
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

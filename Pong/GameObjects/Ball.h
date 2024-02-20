@@ -11,9 +11,10 @@ protected:
 
 	bool isDead = false;
 	bool isBoundBat = false;
+	bool isBatCollision = false;
 
 	sf::FloatRect windowBounds;
-
+	sf::FloatRect batBounds;
 public:
 	Ball(const std::string& name = "");
 
@@ -21,6 +22,8 @@ public:
 
 	bool IsDead() const { return isDead; }
 	bool IsBoundBat() const { return isBoundBat; }
+
+	void SetBatBounds(const sf::FloatRect& batBounds);
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetOrigin(Origins preset) override;

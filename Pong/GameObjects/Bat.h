@@ -14,6 +14,8 @@ public:
 	void SetOrigin(Origins preset) override;
 	void SetOrigin(const sf::Vector2f& newOrigin) override;
 
+	const sf::FloatRect& GetBatBounds() const { return bat.getGlobalBounds(); }
+
 	void Init() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
