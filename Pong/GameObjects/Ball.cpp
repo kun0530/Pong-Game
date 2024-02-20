@@ -46,6 +46,9 @@ void Ball::Init()
 
 void Ball::Update(float dt)
 {
+	sf::Vector2f pos = GetPosition();
+	pos += direction * speed * dt;
+	SetPosition(pos);
 }
 
 void Ball::Draw(sf::RenderWindow& window)

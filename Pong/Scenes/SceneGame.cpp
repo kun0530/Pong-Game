@@ -41,6 +41,12 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+
+	if (!isBallActive && InputMgr::GetKeyDown(sf::Keyboard::Space))
+	{
+		ball->Fire({ 1.f, -1.f }, 1000.f);
+		isBallActive = true;
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

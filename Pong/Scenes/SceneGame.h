@@ -7,6 +7,7 @@ class SceneGame : public Scene
 {
 protected:
 	Ball* ball = nullptr;
+	bool isBallActive = false;
 
 public:
 	SceneGame(SceneIds id);
